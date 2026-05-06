@@ -8,11 +8,11 @@
   },
   "plugins": [
     {
-      "name": "claude-ltm",
+      "name": "claude-project-memory",
       "description": "Project-scoped long-term memory for Claude Code. Unlike per-user tools, the knowledge vault lives inside the repository — shared across the team, versioned in git, and navigable as an Obsidian graph. Raw session logs are captured automatically and distilled via /memory-digest into curated, cross-linked docs. The vault grows over time, making Claude progressively smarter for everyone working on the project.",
       "source": "./",
       "category": "productivity",
-      "homepage": "https://github.com/reduardo7/claude-long-term-memory"
+      "homepage": "https://github.com/reduardo7/claude-project-memory"
     }
   ]
 }

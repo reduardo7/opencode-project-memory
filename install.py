@@ -6,7 +6,7 @@
 
 """
 Bootstrap script — creates the required directories and copies all
-claude-long-term-memory files into the target project.
+claude-project-memory files into the target project.
 
 Usage:
     uv run install.py /path/to/target-project
@@ -41,7 +41,7 @@ def main() -> None:
         print(f"Error: target directory '{target}' does not exist")
         sys.exit(1)
 
-    print(f"Installing claude-long-term-memory into: {target}")
+    print(f"Installing claude-project-memory into: {target}")
     print()
 
     # Create directories

@@ -13,7 +13,7 @@ It can be installed as a Claude plugin (recommended) or manually via `install.py
 ### Plugin (recommended)
 
 ```
-/plugin install github.com/reduardo7/claude-long-term-memory
+/plugin install github.com/reduardo7/claude-project-memory
 ```
 
 After installing the plugin, run `install.py` to set up the vault/memory directory structure in the target project, then complete the post-install steps below.
@@ -27,6 +27,7 @@ uv run install.py /path/to/target-project
 The script copies memory system files (commands, agents, rules, hooks, vault templates) into the target project. It skips existing vault files to avoid overwriting customizations.
 
 **Post-install steps (both options):**
+
 1. Customize `docs/vault/Home.md` for the target project
 2. Update the skills table in `.claude/agents/memory-digest-daily.md`
 
@@ -52,24 +53,25 @@ Work session → memory/daily/YYYY-MM-DD_HHMMSS.md   (raw log)
 
 ### Key Components
 
-| Path | Role |
-|------|------|
-| `.claude-plugin/plugin.json` | Plugin manifest — enables `/plugin install` |
-| `skills/memory-digest/SKILL.md` | `/memory-digest` slash command in plugin format |
-| `.claude-plugin/marketplace.json` | Plugin marketplace registration |
-| `memory/memory.md` | Operating instructions for what/when to record |
-| `.claude/commands/memory-digest.md` | `/memory-digest` slash command (legacy format, kept for manual install) |
-| `.claude/agents/memory-digest-daily.md` | Sub-agent: distills one daily log → vault (uses Sonnet) |
-| `.claude/agents/memory-digest-spec.md` | Sub-agent: distills one spec → vault (uses Sonnet) |
-| `.claude/agents/memory-search.md` | Sub-agent: retrieves vault docs before tasks (uses Haiku) |
-| `docs/vault/Home.md` | Vault master index — customize per target project |
-| `docs/vault/Decisions/Index.md` | ADR registry with next ADR number |
-| `specs/digested.txt` | Registry of already-processed spec files |
-| `install.py` | Bootstrap script — creates directories and copies files into target project |
+| Path                                    | Role                                                                        |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| `.claude-plugin/plugin.json`            | Plugin manifest — enables `/plugin install`                                 |
+| `skills/memory-digest/SKILL.md`         | `/memory-digest` slash command in plugin format                             |
+| `.claude-plugin/marketplace.json`       | Plugin marketplace registration                                             |
+| `memory/memory.md`                      | Operating instructions for what/when to record                              |
+| `.claude/commands/memory-digest.md`     | `/memory-digest` slash command (legacy format, kept for manual install)     |
+| `.claude/agents/memory-digest-daily.md` | Sub-agent: distills one daily log → vault (uses Sonnet)                     |
+| `.claude/agents/memory-digest-spec.md`  | Sub-agent: distills one spec → vault (uses Sonnet)                          |
+| `.claude/agents/memory-search.md`       | Sub-agent: retrieves vault docs before tasks (uses Haiku)                   |
+| `docs/vault/Home.md`                    | Vault master index — customize per target project                           |
+| `docs/vault/Decisions/Index.md`         | ADR registry with next ADR number                                           |
+| `specs/digested.txt`                    | Registry of already-processed spec files                                    |
+| `install.py`                            | Bootstrap script — creates directories and copies files into target project |
 
 ### Hooks
 
 **When adding or modifying hooks, update:**
+
 - `.claude-plugin/plugin.json` — used when installed via `/plugin install` (paths use `${CLAUDE_PLUGIN_ROOT}`)
 
 Seven Python hooks fire on Claude Code events:

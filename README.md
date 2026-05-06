@@ -1,4 +1,4 @@
-# claude-long-term-memory
+# Claude Project Memory
 
 A long-term memory system for Claude Code. Captures session decisions, errors, and discoveries in raw daily logs, then distills them into a curated Obsidian vault via the `/memory-digest` command.
 
@@ -54,7 +54,7 @@ docs/vault/  (curated, permanent, cross-linked Obsidian vault)
 Install the plugin with a single command inside Claude Code:
 
 ```
-/plugin install github.com/reduardo7/claude-long-term-memory
+/plugin install github.com/reduardo7/claude-project-memory
 ```
 
 This installs the `/memory-digest` slash command, the three sub-agents (`memory-search`, `memory-digest-daily`, `memory-digest-spec`), and wires all hooks automatically.
@@ -80,7 +80,7 @@ See [Customization](#customization) below.
 #### Step 1 — Run the install script
 
 ```bash
-uv run /path/to/claude-long-term-memory/install.py /path/to/your-project
+uv run /path/to/claude-project-memory/install.py /path/to/your-project
 ```
 
 This creates the required directories and copies all files into your project. Existing files are never overwritten.
@@ -90,24 +90,24 @@ This creates the required directories and copies all files into your project. Ex
 
 ```bash
 # From your project root
-cp /path/to/claude-long-term-memory/memory/memory.md ./memory/memory.md
+cp /path/to/claude-project-memory/memory/memory.md ./memory/memory.md
 touch ./memory/daily/.gitkeep
 
-cp /path/to/claude-long-term-memory/docs/vault/Home.md                            ./docs/vault/Home.md
-cp /path/to/claude-long-term-memory/docs/vault/Claude/Memory.md                   ./docs/vault/Claude/Memory.md
-cp /path/to/claude-long-term-memory/docs/vault/Decisions/Index.md                 ./docs/vault/Decisions/Index.md
-cp "/path/to/claude-long-term-memory/docs/vault/Development/Obsidian Vault.md"    "./docs/vault/Development/Obsidian Vault.md"
-cp "/path/to/claude-long-term-memory/docs/vault/Development/Expected Behaviors.md" "./docs/vault/Development/Expected Behaviors.md"
+cp /path/to/claude-project-memory/docs/vault/Home.md                            ./docs/vault/Home.md
+cp /path/to/claude-project-memory/docs/vault/Claude/Memory.md                   ./docs/vault/Claude/Memory.md
+cp /path/to/claude-project-memory/docs/vault/Decisions/Index.md                 ./docs/vault/Decisions/Index.md
+cp "/path/to/claude-project-memory/docs/vault/Development/Obsidian Vault.md"    "./docs/vault/Development/Obsidian Vault.md"
+cp "/path/to/claude-project-memory/docs/vault/Development/Expected Behaviors.md" "./docs/vault/Development/Expected Behaviors.md"
 
-cp /path/to/claude-long-term-memory/.claude/commands/memory-digest.md             ./.claude/commands/memory-digest.md
-cp /path/to/claude-long-term-memory/.claude/commands/conditional-docs.md          ./.claude/commands/conditional-docs.md
+cp /path/to/claude-project-memory/.claude/commands/memory-digest.md             ./.claude/commands/memory-digest.md
+cp /path/to/claude-project-memory/.claude/commands/conditional-docs.md          ./.claude/commands/conditional-docs.md
 
-cp /path/to/claude-long-term-memory/.claude/agents/memory-digest-daily.md         ./.claude/agents/memory-digest-daily.md
-cp /path/to/claude-long-term-memory/.claude/agents/memory-digest-spec.md          ./.claude/agents/memory-digest-spec.md
-cp /path/to/claude-long-term-memory/.claude/agents/memory-search.md               ./.claude/agents/memory-search.md
+cp /path/to/claude-project-memory/.claude/agents/memory-digest-daily.md         ./.claude/agents/memory-digest-daily.md
+cp /path/to/claude-project-memory/.claude/agents/memory-digest-spec.md          ./.claude/agents/memory-digest-spec.md
+cp /path/to/claude-project-memory/.claude/agents/memory-search.md               ./.claude/agents/memory-search.md
 
-cp /path/to/claude-long-term-memory/.claude/rules/memory.md                       ./.claude/rules/memory.md
-cp /path/to/claude-long-term-memory/.claude/rules/obsidian-vault.md               ./.claude/rules/obsidian-vault.md
+cp /path/to/claude-project-memory/.claude/rules/memory.md                       ./.claude/rules/memory.md
+cp /path/to/claude-project-memory/.claude/rules/obsidian-vault.md               ./.claude/rules/obsidian-vault.md
 ```
 
 </details>
@@ -204,8 +204,8 @@ Hooks use `uv run` by default. To use plain `python3` instead, replace `uv run` 
 | `memory/daily/*.md`                              | Raw session logs — ephemeral, deleted after `/memory-digest`                 |
 | `docs/vault/Home.md`                             | Vault master index — update as vault grows                                   |
 | `docs/vault/Claude/Memory.md`                    | Memory system documentation in the vault                                     |
-| `docs/vault/Decisions/Index.md`                 | ADR index — updated after every architectural decision                       |
-| `docs/vault/Development/Obsidian Vault.md`        | Vault writing conventions (naming, wikilinks)                                |
+| `docs/vault/Decisions/Index.md`                  | ADR index — updated after every architectural decision                       |
+| `docs/vault/Development/Obsidian Vault.md`       | Vault writing conventions (naming, wikilinks)                                |
 | `.claude/commands/memory-digest.md`              | `/memory-digest` slash command (legacy format)                               |
 | `.claude/commands/conditional-docs.md`           | Maps task types to vault documents — customize per project                   |
 | `.claude/agents/memory-digest-daily.md`          | Sub-agent: distills one daily log → vault + skills                           |
