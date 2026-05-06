@@ -54,7 +54,6 @@ def main() -> None:
         "docs/vault/Project",
         ".claude/commands",
         ".claude/agents",
-        ".claude/rules",
     ]:
         (target / sub).mkdir(parents=True, exist_ok=True)
 
@@ -89,15 +88,6 @@ def main() -> None:
             target / ".claude/agents" / agent,
         )
         print(f"  CREATED: .claude/agents/{agent}")
-
-    # Copy Claude rules
-    print("→ Copying .claude/rules/")
-    for rule in ["memory.md", "obsidian-vault.md"]:
-        shutil.copy2(
-            plugin_dir / ".claude/rules" / rule,
-            target / ".claude/rules" / rule,
-        )
-        print(f"  CREATED: .claude/rules/{rule}")
 
     print()
     print("Installation complete.")

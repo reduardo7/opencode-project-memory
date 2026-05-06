@@ -49,8 +49,6 @@ docs/vault/  (curated, permanent, cross-linked Obsidian vault)
 
 ## Installation
 
-### Option A — Plugin (recommended)
-
 Install the plugin with a single command inside Claude Code:
 
 ```
@@ -61,7 +59,7 @@ This installs the `/memory-digest` slash command, the three sub-agents (`memory-
 
 **After installing the plugin**, complete the project setup:
 
-#### Step 1 — Initialize the project structure
+### Step 1 — Initialize the project structure
 
 ```bash
 uv run ~/.claude/plugins/long-term-memory/install.py /path/to/your-project
@@ -69,49 +67,7 @@ uv run ~/.claude/plugins/long-term-memory/install.py /path/to/your-project
 
 This creates `memory/daily/`, `docs/vault/`, and copies the operating instructions into your project. Existing files are never overwritten.
 
-#### Step 2 — Customize for your project
-
-See [Customization](#customization) below.
-
----
-
-### Option B — Manual installation
-
-#### Step 1 — Run the install script
-
-```bash
-uv run /path/to/claude-project-memory/install.py /path/to/your-project
-```
-
-This creates the required directories and copies all files into your project. Existing files are never overwritten.
-
-<details>
-<summary>Manual file-by-file copy (alternative)</summary>
-
-```bash
-# From your project root
-cp /path/to/claude-project-memory/memory/memory.md ./memory/memory.md
-touch ./memory/daily/.gitkeep
-
-cp /path/to/claude-project-memory/docs/vault/Home.md                            ./docs/vault/Home.md
-cp /path/to/claude-project-memory/docs/vault/Claude/Memory.md                   ./docs/vault/Claude/Memory.md
-cp /path/to/claude-project-memory/docs/vault/Decisions/Index.md                 ./docs/vault/Decisions/Index.md
-cp "/path/to/claude-project-memory/docs/vault/Development/Obsidian Vault.md"    "./docs/vault/Development/Obsidian Vault.md"
-cp "/path/to/claude-project-memory/docs/vault/Development/Expected Behaviors.md" "./docs/vault/Development/Expected Behaviors.md"
-
-cp /path/to/claude-project-memory/.claude/commands/conditional-docs.md          ./.claude/commands/conditional-docs.md
-
-cp /path/to/claude-project-memory/.claude/agents/memory-digest-daily.md         ./.claude/agents/memory-digest-daily.md
-cp /path/to/claude-project-memory/.claude/agents/memory-digest-spec.md          ./.claude/agents/memory-digest-spec.md
-cp /path/to/claude-project-memory/.claude/agents/memory-search.md               ./.claude/agents/memory-search.md
-
-cp /path/to/claude-project-memory/.claude/rules/memory.md                       ./.claude/rules/memory.md
-cp /path/to/claude-project-memory/.claude/rules/obsidian-vault.md               ./.claude/rules/obsidian-vault.md
-```
-
-</details>
-
-#### Step 2 — Customize for your project
+### Step 2 — Customize for your project
 
 See [Customization](#customization) below.
 
@@ -171,8 +127,6 @@ The default vault path is `docs/vault/`. To change it, update all references in:
 - `.claude/agents/memory-digest-daily.md`
 - `.claude/agents/memory-digest-spec.md`
 - `.claude/agents/memory-search.md`
-- `.claude/rules/obsidian-vault.md`
-- `.claude/hooks/memory_session_start_reminder.py`
 
 ### Conditional docs
 
@@ -209,8 +163,6 @@ Hooks use `uv run` by default. To use plain `python3` instead, replace `uv run` 
 | `.claude/agents/memory-digest-daily.md`          | Sub-agent: distills one daily log → vault + skills                           |
 | `.claude/agents/memory-digest-spec.md`           | Sub-agent: distills one spec file → vault + skills                           |
 | `.claude/agents/memory-search.md`                | Sub-agent: retrieves vault docs before tasks                                 |
-| `.claude/rules/memory.md`                        | Claude Rule: fires when memory/ or memory system files are touched           |
-| `.claude/rules/obsidian-vault.md`                | Claude Rule: fires when docs/vault/ files are touched                        |
 | `.claude/hooks/memory_session_start_reminder.py` | SessionStart + PostCompact hook: injects memory instructions automatically   |
 | `.claude/hooks/memory_search_reminder.py`        | UserPromptSubmit hook: reminds Claude to search vault                        |
 | `.claude/hooks/memory_log_reminder.py`           | UserPromptSubmit hook: reminds Claude to update daily log before responding  |

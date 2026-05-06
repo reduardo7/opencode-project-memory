@@ -35,12 +35,6 @@ The script copies memory system files (commands, agents, rules, hooks, vault tem
 
 ## Architecture
 
-The system has three activation layers that must all be present in the target project:
-
-1. **CLAUDE.md snippet** — loaded every session, ensures memory instructions apply everywhere
-2. **Claude Rules** (`.claude/rules/`) — context-specific instructions fired when touching memory/vault files
-3. **Hooks** (`.claude/hooks/`) — real-time Python reminders triggered by Claude Code events
-
 ### Core Data Flow
 
 ```
