@@ -99,7 +99,6 @@ cp /path/to/claude-project-memory/docs/vault/Decisions/Index.md                 
 cp "/path/to/claude-project-memory/docs/vault/Development/Obsidian Vault.md"    "./docs/vault/Development/Obsidian Vault.md"
 cp "/path/to/claude-project-memory/docs/vault/Development/Expected Behaviors.md" "./docs/vault/Development/Expected Behaviors.md"
 
-cp /path/to/claude-project-memory/.claude/commands/memory-digest.md             ./.claude/commands/memory-digest.md
 cp /path/to/claude-project-memory/.claude/commands/conditional-docs.md          ./.claude/commands/conditional-docs.md
 
 cp /path/to/claude-project-memory/.claude/agents/memory-digest-daily.md         ./.claude/agents/memory-digest-daily.md
@@ -185,7 +184,7 @@ Open `.claude/agents/memory-digest-daily.md` and `.claude/agents/memory-digest-s
 
 ### Specs pipeline
 
-The specs pipeline (`specs/*.md` → `memory-digest-spec`) is optional. If you don't use spec files, remove steps 3 and 4 from `.claude/commands/memory-digest.md`.
+The specs pipeline (`specs/*.md` → `memory-digest-spec`) is optional. If you don't use spec files, remove steps 3 and 4 from `skills/memory-digest/SKILL.md`.
 
 ### Python interpreter
 
@@ -206,7 +205,6 @@ Hooks use `uv run` by default. To use plain `python3` instead, replace `uv run` 
 | `docs/vault/Claude/Memory.md`                    | Memory system documentation in the vault                                     |
 | `docs/vault/Decisions/Index.md`                  | ADR index — updated after every architectural decision                       |
 | `docs/vault/Development/Obsidian Vault.md`       | Vault writing conventions (naming, wikilinks)                                |
-| `.claude/commands/memory-digest.md`              | `/memory-digest` slash command (legacy format)                               |
 | `.claude/commands/conditional-docs.md`           | Maps task types to vault documents — customize per project                   |
 | `.claude/agents/memory-digest-daily.md`          | Sub-agent: distills one daily log → vault + skills                           |
 | `.claude/agents/memory-digest-spec.md`           | Sub-agent: distills one spec file → vault + skills                           |

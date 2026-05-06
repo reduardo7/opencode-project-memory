@@ -23,7 +23,7 @@ docs/vault/            ← curated knowledge (permanent destination)
 
 - **`memory/daily/*.md`** is the **raw log**: records without filter every decision made, every error committed, every user correction, every non-obvious finding during the current session.
 - **`docs/vault/`** is the **curated knowledge**: final destination of processed learnings.
-- The `/memory-digest` command (see `.claude/commands/memory-digest.md`) processes `daily/` files and promotes them to the vault, deleting them after processing.
+- The `/memory-digest` command (see `skills/memory-digest/SKILL.md`) processes `daily/` files and promotes them to the vault, deleting them after processing.
 
 ---
 
@@ -168,7 +168,7 @@ Once a day (or when the user invokes it), the `/memory-digest` command:
 5. Updates `docs/vault/Home.md` and `.claude/commands/conditional-docs.md` (if it exists) if new documents appear.
 6. **Deletes the processed files** in `memory/daily/` — the knowledge now lives in the curated vault.
 
-See `.claude/commands/memory-digest.md` for the complete procedure.
+See `skills/memory-digest/SKILL.md` for the complete procedure.
 
 ---
 

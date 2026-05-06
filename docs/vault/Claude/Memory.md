@@ -24,26 +24,39 @@ memory/
 └── daily/             ← raw session logs (ephemeral)
     └── YYYY-MM-DD_HHMMSS.md
 
+hooks/                           ← Python hooks (plugin root; copied to .claude/hooks/ by install.py)
+├── hooks.json                   ← hook event → script mappings
+├── memory_session_start_reminder.py  ← SessionStart + PostCompact: injects memory instructions
+├── memory_search_reminder.py         ← UserPromptSubmit: reminder to invoke memory-search
+├── memory_log_reminder.py            ← UserPromptSubmit: proactive reminder to create/update daily log
+├── memory_pre_agent_reminder.py      ← PreToolUse[Agent]: reminder when launching sub-agents
+├── memory_stop_reminder.py           ← Stop: contextual reminder to record in memory/daily/
+├── memory_pre_compact_reminder.py    ← PreCompact: persist daily log before compaction
+└── memory_post_compact_reminder.py   ← PostCompact: re-read vault docs after compaction
+
 .claude/
-├── commands/
-│   └── memory-digest.md         ← orchestrator of the distillation process
 ├── agents/
 │   ├── memory-search.md         ← retrieves vault docs before implementing
 │   ├── memory-digest-daily.md   ← sub-agent: processes one memory/daily/ file
 │   └── memory-digest-spec.md    ← sub-agent: processes one specs/ file
-├── hooks/
-│   ├── memory_search_reminder.py  ← UserPromptSubmit: reminder to invoke memory-search
-│   ├── memory_log_reminder.py     ← UserPromptSubmit: proactive reminder to create/update daily log
-│   ├── memory_pre_agent_reminder.py      ← PreToolUse[Agent]: reminder when launching sub-agents
-│   └── memory_stop_reminder.py    ← Stop: contextual reminder to record in memory/daily/
 └── rules/
-    └── memory.md                ← Claude Rule for memory/**/*
+    ├── memory.md                ← Claude Rule for memory/**/*
+    └── obsidian-vault.md        ← Claude Rule for docs/vault/**/*
+
+skills/
+└── memory-digest/
+    └── SKILL.md                 ← /memory-digest in plugin format
+
+.claude-plugin/
+├── plugin.json                  ← plugin manifest (enables /plugin install)
+└── marketplace.json             ← plugin marketplace registration
 
 specs/
 ├── *.md               ← implementation specs (immutable, historical)
 └── digested.txt       ← registry of specs already processed by /memory-digest
 
 CLAUDE.md              ← "Long-Term Memory" section: inline instruction loaded in every session
+install.py             ← bootstrap script: creates directories and copies files into target project
 ```
 
 | Layer                | Purpose                                | Lifecycle                                 |
@@ -115,7 +128,7 @@ topic: <main topic, one line>
 
 ## `/memory-digest` command
 
-**File:** `.claude/commands/memory-digest.md`
+**File:** `skills/memory-digest/SKILL.md`
 **Model:** Sonnet
 **Role:** pure orchestrator — discovers files, launches sub-agents, records results, cleans up.
 

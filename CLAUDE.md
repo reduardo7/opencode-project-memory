@@ -59,7 +59,6 @@ Work session → memory/daily/YYYY-MM-DD_HHMMSS.md   (raw log)
 | `skills/memory-digest/SKILL.md`         | `/memory-digest` slash command in plugin format                             |
 | `.claude-plugin/marketplace.json`       | Plugin marketplace registration                                             |
 | `memory/memory.md`                      | Operating instructions for what/when to record                              |
-| `.claude/commands/memory-digest.md`     | `/memory-digest` slash command (legacy format, kept for manual install)     |
 | `.claude/agents/memory-digest-daily.md` | Sub-agent: distills one daily log → vault (uses Sonnet)                     |
 | `.claude/agents/memory-digest-spec.md`  | Sub-agent: distills one spec → vault (uses Sonnet)                          |
 | `.claude/agents/memory-search.md`       | Sub-agent: retrieves vault docs before tasks (uses Haiku)                   |

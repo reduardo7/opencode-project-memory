@@ -76,11 +76,6 @@ def main() -> None:
 
     # Copy Claude commands
     print("→ Copying .claude/commands/")
-    shutil.copy2(
-        plugin_dir / ".claude/commands/memory-digest.md",
-        target / ".claude/commands/memory-digest.md",
-    )
-    print("  CREATED: .claude/commands/memory-digest.md")
     copy_if_missing(
         plugin_dir / ".claude/commands/conditional-docs.md",
         target / ".claude/commands/conditional-docs.md",
