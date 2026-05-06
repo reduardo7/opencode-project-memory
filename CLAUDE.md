@@ -55,6 +55,7 @@ Work session → memory/daily/YYYY-MM-DD_HHMMSS.md   (raw log)
 | `skills/memory-digest-daily/SKILL.md` | Skill used as sub-agent: distills one daily log → vault (uses Sonnet)       |
 | `skills/memory-digest-spec/SKILL.md`  | Skill used as sub-agent: distills one spec → vault (uses Sonnet)            |
 | `skills/memory-search/SKILL.md`       | Skill used as sub-agent: retrieves vault docs before tasks (uses Haiku)     |
+| `skills/install/SKILL.md`             | `/install` slash command: installs the plugin into the current project      |
 | `.claude-plugin/marketplace.json`     | Plugin marketplace registration                                             |
 | `memory/memory.md`                    | Operating instructions for what/when to record                              |
 | `docs/vault/Home.md`                  | Vault master index — customize per target project                           |

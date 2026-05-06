@@ -55,17 +55,25 @@ Install the plugin with a single command inside Claude Code:
 /plugin install github.com/reduardo7/claude-project-memory
 ```
 
-This installs the `/claude-project-memory:memory-digest` slash command, the three skills used as sub-agents (`claude-project-memory:memory-search`, `claude-project-memory:memory-digest-daily`, `claude-project-memory:memory-digest-spec`), and wires all hooks automatically.
+This installs the `/claude-project-memory:memory-digest` slash command, the `/claude-project-memory:install` slash command, the skills used as sub-agents (`claude-project-memory:memory-search`, `claude-project-memory:memory-digest-daily`, `claude-project-memory:memory-digest-spec`), and wires all hooks automatically.
 
 **After installing the plugin**, complete the project setup:
 
 ### Step 1 — Initialize the project structure
 
-```bash
-uv run ~/.claude/plugins/long-term-memory/install.py /path/to/your-project
+Open Claude Code inside your target project and run:
+
+```
+/claude-project-memory:install
 ```
 
-This creates `memory/daily/`, `docs/vault/`, and copies the operating instructions into your project. Existing files are never overwritten.
+This detects the current directory automatically, ensures `uv` is installed (installing it if needed), and runs the bootstrap script. It creates `memory/daily/`, `docs/vault/`, and copies the operating instructions. Existing files are never overwritten.
+
+**Manual alternative** — if you prefer to run the script directly:
+
+```bash
+uv run ~/.claude/plugins/claude-project-memory/install.py /path/to/your-project
+```
 
 ### Step 2 — Customize for your project
 
@@ -155,6 +163,7 @@ Hooks use `uv run` by default. To use plain `python3` instead, replace `uv run` 
 | `skills/memory-digest-daily/SKILL.md`            | Skill used as sub-agent: distills one daily log → vault + skills             |
 | `skills/memory-digest-spec/SKILL.md`             | Skill used as sub-agent: distills one spec file → vault + skills             |
 | `skills/memory-search/SKILL.md`                  | Skill used as sub-agent: retrieves vault docs before tasks                   |
+| `skills/install/SKILL.md`                        | `/install` slash command: bootstraps the plugin into the current project     |
 | `.claude-plugin/marketplace.json`                | Plugin marketplace registration                                              |
 | `memory/memory.md`                               | Operating instructions for Claude — what to record, when, and in what format |
 | `memory/daily/*.md`                              | Raw session logs — ephemeral, deleted after `/memory-digest`                 |
