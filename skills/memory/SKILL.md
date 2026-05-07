@@ -1,3 +1,11 @@
+---
+name: memory
+description: Operating instructions for the long-term memory system — what to record, when, and in what format during sessions.
+version: 1.0.0
+model: haiku
+allowed-tools: []
+---
+
 # Long-Term Memory — Operating Instructions
 
 This document defines how Claude Code should operate with the long-term memory system in this project. **Mandatory reading at the start of every session** (referenced from `CLAUDE.md`).
@@ -14,11 +22,13 @@ Capture decisions, errors, corrections, and learnings from each work session and
 
 ```
 memory/
-├── memory.md          ← this file (how to operate)
 └── daily/             ← raw session log (ephemeral)
     └── <timestamp>.md ← one file per chat/session
 
 docs/vault/            ← curated knowledge (permanent destination)
+
+skills/memory/
+└── SKILL.md           ← this file (how to operate)
 ```
 
 - **`memory/daily/*.md`** is the **raw log**: records without filter every decision made, every error committed, every user correction, every non-obvious finding during the current session.
@@ -151,7 +161,7 @@ In trivial sessions (one simple question with no actions) **do not create a file
 | A technical decision was made                             | `## Decisions`              |
 | The user corrected an error (quote literally if possible) | `## Errors and corrections` |
 | Something not documented in the vault was discovered      | `## Learnings`              |
-| A file, issue, or PR was touched                          | `## References`             |
+| A file, issue, or PR was touched                         | `## References`             |
 
 Use `Edit` to append to the file without rewriting it.
 
@@ -187,7 +197,7 @@ See `skills/memory-digest/SKILL.md` for the complete procedure.
 **What is NOT memory:**
 
 - **Code comments**: not memory, they are point-in-time intent documentation.
-- **`memory/memory.md`**: these are instructions, not content.
+- **`skills/memory/SKILL.md`**: these are instructions, not content.
 
 ---
 

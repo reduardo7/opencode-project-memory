@@ -31,7 +31,6 @@ def main():
 
     base_docs = [
         "docs/vault/Home.md",
-        "memory/memory.md"
     ]
 
     docs_list = "\n".join(f"  - {d}" for d in base_docs)
@@ -44,9 +43,9 @@ def main():
 
     reminder = (
         "<memory-post-compact-reminder>"
-        "Context was just compacted. Read the base documents now to "
-        "restore the architectural context of the session:\n"
-        f"{docs_list}{log_line}\n"
+        "Context was just compacted. Restore the architectural context of the session:\n"
+        "  1. Invoke the `claude-project-memory:memory` skill to reload the memory system instructions.\n"
+        f"  2. Read the base documents:\n{docs_list}{log_line}\n"
         "These documents contain decisions, conventions, and project state "
         "that are not in the compacted history."
         "</memory-post-compact-reminder>"

@@ -20,7 +20,6 @@ Capture decisions, errors, corrections, and learnings from each work session and
 
 ```
 memory/
-├── memory.md          ← operating instructions (mandatory reading from CLAUDE.md)
 └── daily/             ← raw session logs (ephemeral)
     └── YYYY-MM-DD_HHMMSS.md
 
@@ -40,6 +39,8 @@ hooks/                           ← Python hooks (plugin root; copied to .claud
     └── obsidian-vault.md        ← Claude Rule for docs/vault/**/*
 
 skills/
+├── memory/
+│   └── SKILL.md                 ← operating instructions (mandatory reading from CLAUDE.md)
 ├── memory-digest/
 │   └── SKILL.md                 ← /claude-project-memory:memory-digest in plugin format
 ├── memory-search/
@@ -250,4 +251,4 @@ The memory system requires **3 complementary activation components** — all thr
 
 - **`~/.claude/projects/.../memory/`** (Claude Code personal auto-memory): only for personal user preferences. Never store project decisions there.
 - **Code comments**: point-in-time intent documentation.
-- **`memory/memory.md`**: operating instructions, not content.
+- **`skills/memory/SKILL.md`**: operating instructions, not content.

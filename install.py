@@ -57,9 +57,8 @@ def main() -> None:
     ]:
         (target / sub).mkdir(parents=True, exist_ok=True)
 
-    # Copy memory system files
-    print("→ Copying memory/")
-    shutil.copy2(plugin_dir / "memory/memory.md", target / "memory/memory.md")
+    # Create memory directory structure
+    print("→ Creating memory/")
     (target / "memory/daily/.gitkeep").touch()
 
     # Create specs directory with .gitkeep

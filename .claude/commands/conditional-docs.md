@@ -14,7 +14,7 @@ This guide determines which documentation to read based on the task at hand. Rev
 
 ## Memory system
 
-- `memory/memory.md`
+- `skills/memory/SKILL.md`
   - Conditions:
     - When creating or modifying files in `memory/` or `memory/daily/`
     - When running or modifying the `/claude-project-memory:memory-digest` command

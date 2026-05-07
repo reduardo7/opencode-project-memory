@@ -16,7 +16,7 @@ import sys
 MEMORY_INSTRUCTIONS = """\
 # Long-Term Memory System
 
-**Memory instructions (mandatory reading):** See [`memory/memory.md`](./memory/memory.md) — defines how to record decisions, errors, and learnings in `memory/daily/*.md` during each session, and how `/claude-project-memory:memory-digest` promotes them to the Obsidian vault.
+**Memory instructions (mandatory reading):** See the `claude-project-memory:memory` skill — defines how to record decisions, errors, and learnings in `memory/daily/*.md` during each session, and how `/claude-project-memory:memory-digest` promotes them to the Obsidian vault.
 
 **Session log (mandatory):** In every session where decisions are made, files are modified, or non-trivial work is done:
 1. **Create the file only when there is something significant to record** (not at session start, not blank). Path: `memory/daily/YYYY-MM-DD_HHMMSS.md` with the current timestamp.

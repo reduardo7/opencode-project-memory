@@ -66,7 +66,7 @@ def main():
         message = (
             "<memory-pre-compact-reminder>"
             "BEFORE COMPACTION: if there were decisions, errors, or learnings in this session, "
-            "create memory/daily/YYYY-MM-DD_HHMMSS.md now (see memory/memory.md). "
+            "create memory/daily/YYYY-MM-DD_HHMMSS.md now (see the claude-project-memory:memory skill for the format). "
             "Compaction will discard the conversation history."
             "</memory-pre-compact-reminder>"
         )

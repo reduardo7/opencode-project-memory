@@ -102,7 +102,7 @@ def main():
             "<memory-log-reminder>"
             "This looks like a non-trivial task. If you make decisions, hit errors, "
             "or discover non-obvious findings, create a session log in "
-            "memory/daily/YYYY-MM-DD_HHMMSS.md (see memory/memory.md for the format) "
+            "memory/daily/YYYY-MM-DD_HHMMSS.md (see the claude-project-memory:memory skill for the format)"
             "as you work — not at the end."
             "</memory-log-reminder>"
         )

@@ -103,7 +103,7 @@ def main():
             message = (
                 "<memory-stop-reminder>"
                 "If there were decisions, errors, or learnings in this session (even if no "
-                "files were modified), create memory/daily/YYYY-MM-DD_HHMMSS.md as per memory.md."
+                "files were modified), create memory/daily/YYYY-MM-DD_HHMMSS.md as per the claude-project-memory:memory skill."
                 "</memory-stop-reminder>"
             )
 
