@@ -1,6 +1,6 @@
 {
   "name": "claude-project-memory",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Project-scoped memory system for Claude Code. Unlike per-user memory tools, knowledge lives inside the repository — shared across the team, versioned in git, and stored as an Obsidian vault. Captures session decisions, errors, and discoveries in daily logs, then distills them via /claude-project-memory:memory-digest. The vault grows over time, making Claude's responses progressively more accurate for everyone on the team.",
   "author": {
     "name": "Eduardo Cuomo",
