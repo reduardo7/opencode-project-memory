@@ -1,6 +1,6 @@
 ---
 name: install
-description: Install claude-project-memory into the current project.
+description: Install claude-project-memory into a project.
 version: 1.0.0
 model: sonnet
 allowed-tools: ["Bash"]

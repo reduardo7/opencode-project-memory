@@ -1,6 +1,6 @@
 ---
 name: memory-digest-spec
-description: 'Sub-agent for memory-digest — distills a spec file into the vault.'
+description: 'Sub-agent: distill one spec file into the vault.'
 version: 1.0.0
 tools:
   - Glob

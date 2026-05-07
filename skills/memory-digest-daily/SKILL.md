@@ -1,6 +1,6 @@
 ---
 name: memory-digest-daily
-description: 'Sub-agent for memory-digest — distills a session log into the vault.'
+description: 'Sub-agent: distill one session log into the vault.'
 version: 1.0.0
 tools:
   - Glob

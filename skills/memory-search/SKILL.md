@@ -1,6 +1,6 @@
 ---
 name: 'memory-search'
-description: "Search the vault for relevant docs before features or architectural decisions."
+description: "Retrieve relevant vault docs before implementation."
 version: 1.0.0
 tools:
   - Glob

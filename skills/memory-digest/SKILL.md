@@ -1,6 +1,6 @@
 ---
 name: memory-digest
-description: Digest daily memory files into long-term knowledge in the vault.
+description: Distill daily memory logs into the vault.
 version: 1.0.0
 model: sonnet
 allowed-tools: ["Glob", "Grep", "Read", "Edit", "Write", "Bash", "Agent"]

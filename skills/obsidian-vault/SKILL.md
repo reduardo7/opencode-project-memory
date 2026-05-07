@@ -1,6 +1,6 @@
 ---
 name: obsidian-vault
-description: Vault writing rules — invoke before creating or modifying any docs/vault/ file.
+description: Vault writing rules for docs/vault/ files.
 ---
 
 # Obsidian Vault — Writing Rules

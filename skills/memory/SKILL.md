@@ -1,6 +1,6 @@
 ---
 name: memory
-description: Long-term memory — what, when, and how to record during sessions.
+description: Memory system — what and when to record during sessions.
 version: 1.1.0
 model: haiku
 allowed-tools: [Read]
