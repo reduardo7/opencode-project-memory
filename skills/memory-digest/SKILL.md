@@ -30,9 +30,10 @@ Convert raw session notes and implementation specs into curated, linked, and per
 
 Process **one at a time** (sequential) to avoid write conflicts in the same vault documents (e.g., `Decisions/Index.md`, `Home.md`):
 
-1. For each file (in chronological order): create a sub-agent using the **`claude-project-memory:memory-digest-daily`** skill passing the absolute path as input. Wait for its result before continuing to the next.
-2. If the sub-agent reports success: **delete** the corresponding `memory/daily/<ts>.md` file.
-3. If the sub-agent reports error or unclassified items (`NOTES` not empty): leave the file, record the problem for the final report. If the sub-agent wrote partially to the vault, note it in the report for human review — do not revert manually.
+1. Read the full content of `skills/memory-digest-daily/SKILL.md`.
+2. For each file (in chronological order): spawn a **`general-purpose`** sub-agent whose prompt consists of the full content of `skills/memory-digest-daily/SKILL.md` followed by a line `Input file: <absolute path>`. Wait for its result before continuing to the next.
+3. If the sub-agent reports success: **delete** the corresponding `memory/daily/<ts>.md` file.
+4. If the sub-agent reports error or unclassified items (`NOTES` not empty): leave the file, record the problem for the final report. If the sub-agent wrote partially to the vault, note it in the report for human review — do not revert manually.
 
 ### 3. Discover pending specs
 
@@ -45,9 +46,10 @@ Process **one at a time** (sequential) to avoid write conflicts in the same vaul
 
 Process **one at a time** (sequential) to avoid write conflicts in the same vault documents:
 
-1. For each spec (in chronological order): create a sub-agent using the **`claude-project-memory:memory-digest-spec`** skill passing the absolute path as input. Wait for its result before continuing to the next.
-2. If the sub-agent reports success: append the spec's basename to the end of `specs/digested.txt`.
-3. If the sub-agent reports error: do not record in `digested.txt` — will retry on next execution. If the sub-agent wrote partially to the vault, note it in the report for human review.
+1. Read the full content of `skills/memory-digest-spec/SKILL.md`.
+2. For each spec (in chronological order): spawn a **`general-purpose`** sub-agent whose prompt consists of the full content of `skills/memory-digest-spec/SKILL.md` followed by a line `Input file: <absolute path>`. Wait for its result before continuing to the next.
+3. If the sub-agent reports success: append the spec's basename to the end of `specs/digested.txt`.
+4. If the sub-agent reports error: do not record in `digested.txt` — will retry on next execution. If the sub-agent wrote partially to the vault, note it in the report for human review.
 
 > **Note:** Required Claude Rules are created by the sub-agents directly in their Step 7. The orchestrator does not create them — only report those that appear in the outputs.
 
@@ -89,10 +91,12 @@ Show the user a concise summary:
 
 ## Sub-agents
 
-| Sub-agent skill | Skill file | Purpose |
-|-----------------|------------|---------|
-| `claude-project-memory:memory-digest-daily` | `skills/memory-digest-daily/SKILL.md` | Processes one `memory/daily/<ts>.md` → vault + skills |
-| `claude-project-memory:memory-digest-spec` | `skills/memory-digest-spec/SKILL.md` | Processes one `specs/<name>.md` → vault + skills |
+Both sub-agents are spawned as **`general-purpose`** agents. Their instructions are loaded at runtime by reading the skill file and embedding it into the prompt.
+
+| Skill file (instructions source) | Agent type | Purpose |
+|----------------------------------|------------|---------|
+| `skills/memory-digest-daily/SKILL.md` | `general-purpose` | Processes one `memory/daily/<ts>.md` → vault + skills |
+| `skills/memory-digest-spec/SKILL.md` | `general-purpose` | Processes one `specs/<name>.md` → vault + skills |
 
 ---
 

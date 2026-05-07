@@ -83,8 +83,8 @@ Seven Python hooks fire on Claude Code events:
 
 Processes files **sequentially** (not in parallel) to avoid write conflicts in shared vault documents like `Decisions/Index.md`:
 
-1. Find all `memory/daily/*.md` → create sub-agent using `claude-project-memory:memory-digest-daily` skill for each → delete on success
-2. Find all `specs/*.md` not in `specs/digested.txt` → create sub-agent using `claude-project-memory:memory-digest-spec` skill for each → append to `digested.txt` on success
+1. Find all `memory/daily/*.md` → read `skills/memory-digest-daily/SKILL.md` → spawn `general-purpose` agent with skill content + file path → delete on success
+2. Find all `specs/*.md` not in `specs/digested.txt` → read `skills/memory-digest-spec/SKILL.md` → spawn `general-purpose` agent with skill content + file path → append to `digested.txt` on success
 3. Commit all vault changes to git
 
 ### Vault Conventions
