@@ -53,6 +53,7 @@ def main() -> None:
         "docs/vault/Development",
         "docs/vault/Project",
         ".claude/commands",
+        "specs"
     ]:
         (target / sub).mkdir(parents=True, exist_ok=True)
 
@@ -60,6 +61,10 @@ def main() -> None:
     print("→ Copying memory/")
     shutil.copy2(plugin_dir / "memory/memory.md", target / "memory/memory.md")
     (target / "memory/daily/.gitkeep").touch()
+
+    # Create specs directory with .gitkeep
+    print("→ Creating specs/")
+    (target / "specs/.gitkeep").touch()
 
     # Copy vault templates (skip existing files)
     print("→ Copying docs/vault/ (skipping existing files)")
