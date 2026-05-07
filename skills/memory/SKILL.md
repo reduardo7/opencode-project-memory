@@ -66,10 +66,10 @@ Four hooks complement the activation system:
 
 ## Searching documentation before each task
 
-**Before implementing any non-trivial task**, create a sub-agent from the `memory-search` skill to retrieve all relevant documentation from the vault:
+**Before implementing any non-trivial task**, create a sub-agent from the `claude-project-memory:memory-search` skill to retrieve all relevant documentation from the vault:
 
 ```
-Agent(subagent_type: "memory-search", prompt: "<task description>")
+Agent(subagent_type: "claude-project-memory:memory-search", prompt: "<task description>")
 ```
 
 The sub-agent reads `docs/vault/Home.md`, `conditional-docs.md` (if it exists), recent daily logs, and `Decisions/Index.md` — then follows all relevant cross-references in the vault. Returns the full content of each document — without summarizing or paraphrasing.

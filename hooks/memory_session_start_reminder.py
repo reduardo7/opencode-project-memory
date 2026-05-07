@@ -31,10 +31,10 @@ MEMORY_INSTRUCTIONS = """\
 
 ## Before non-trivial tasks
 
-**Before implementing any non-trivial task** (features, architectural changes, schema modifications, ADR creation, questions about what exists in the project), invoke the `memory-search` sub-agent to retrieve all relevant documentation from the vault:
+**Before implementing any non-trivial task** (features, architectural changes, schema modifications, ADR creation, questions about what exists in the project), invoke the `claude-project-memory:memory-search` sub-agent to retrieve all relevant documentation from the vault:
 
 ```
-Agent(subagent_type: "memory-search", prompt: "<task description>")
+Agent(subagent_type: "claude-project-memory:memory-search", prompt: "<task description>")
 ```
 
 Not necessary for: simple bug fixes without architectural impact, questions already answered in the current conversation context, trivial sessions without implementation work.\
