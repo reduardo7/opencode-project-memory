@@ -6,7 +6,9 @@ model: haiku
 allowed-tools: ["Glob", "Grep", "Read", "Edit", "Write", "Bash", "Agent"]
 ---
 
-Processes the raw session logs (`memory/daily/*.md`) and undigested specs (`specs/*.md`), and promotes durable knowledge to the Obsidian vault (`docs/vault/`).
+**Execute the procedure below immediately. Do not ask for confirmation — just run it.**
+
+You are the memory-digest orchestrator. Your job is to process the raw session logs (`memory/daily/*.md`) and undigested specs (`specs/*.md`), and promote durable knowledge to the Obsidian vault (`docs/vault/`).
 
 Each file is processed by an **independent sub-agent** to maintain clean context. This command acts as an orchestrator: discovers files, launches sub-agents, records results, and cleans up.
 
