@@ -34,7 +34,7 @@ skills/memory/
 
 - **`memory/daily/*.md`** is the **raw log**: records without filter every decision made, every error committed, every user correction, every non-obvious finding during the current session.
 - **`docs/vault/`** is the **curated knowledge**: final destination of processed learnings.
-- The `/claude-project-memory:memory-digest` command processes `daily/` files and promotes them to the vault, deleting them after processing.
+- The `/claude-project-memory:digest` command processes `daily/` files and promotes them to the vault, deleting them after processing.
 
 ---
 
@@ -46,23 +46,23 @@ The operational rules in `context.md` reach Claude via three complementary paths
 | --- | --- | --- |
 | **Hook** (SessionStart/PostCompact) | `hooks/memory_session_start_reminder.py` | Reads and injects `skills/memory/context.md` at session start and after compaction |
 | **This skill** | `skills/memory/SKILL.md` | When invoked — mandates reading `context.md` via `Read` tool |
-| **Rule** | `.claude/rules/memory.md` | When touching `memory/**/*` or `memory-digest` files |
+| **Rule** | `.claude/rules/memory.md` | When touching `memory/**/*` or `claude-project-memory:digest` files |
 
 ### Memory hooks
 
 | Hook | Type | When it fires | Behavior |
 | --- | --- | --- | --- |
 | `hooks/memory_session_start_reminder.py` | `SessionStart` + `PostCompact` | Session start and after compaction | Reads and injects `skills/memory/context.md` directly |
-| `hooks/memory_search_reminder.py` | `UserPromptSubmit` | Each user prompt | Reminds to invoke `memory-search` before non-trivial tasks |
+| `hooks/memory_search_reminder.py` | `UserPromptSubmit` | Each user prompt | Reminds to invoke `claude-project-memory:search` before non-trivial tasks |
 | `hooks/memory_log_reminder.py` | `UserPromptSubmit` | Each user prompt | Detects non-trivial work; reminds to create/update daily log before responding |
-| `hooks/memory_pre_agent_reminder.py` | `PreToolUse[Agent]` | Before any sub-agent | Reminds to include vault context via the `memory-search` skill |
+| `hooks/memory_pre_agent_reminder.py` | `PreToolUse[Agent]` | Before any sub-agent | Reminds to include vault context via the `claude-project-memory:search` skill |
 | `hooks/memory_stop_reminder.py` | `Stop` | End of each response | Reminds to update daily log or create one if there was significant work |
 | `hooks/memory_pre_compact_reminder.py` | `PreCompact` | Before compaction | Reminds to persist daily log before context is discarded |
 | `hooks/memory_post_compact_reminder.py` | `PostCompact` | After compaction | Reminds to re-read base vault docs to restore architectural context |
 
 ---
 
-## Daily processing (`/claude-project-memory:memory-digest`)
+## Daily processing (`/claude-project-memory:digest`)
 
 Once a day (or when the user invokes it), the command:
 
@@ -70,10 +70,10 @@ Once a day (or when the user invokes it), the command:
 2. Processes each one **sequentially** with a **Sonnet model** sub-agent to extract durable knowledge.
 3. Promotes each learning to the **correct location in the vault** (`docs/vault/`), creating or updating existing files.
 4. Ensures **bidirectional linking** with related vault documents.
-5. Updates `docs/vault/Home.md` and `.claude/commands/conditional-docs.md` (if it exists) if new documents appear.
+5. Updates `docs/vault/Home.md` if new documents appear.
 6. **Deletes the processed files** in `memory/daily/` — the knowledge now lives in the curated vault.
 
-See `skills/memory-digest/SKILL.md` for the complete procedure.
+See `skills/digest/SKILL.md` for the complete procedure.
 
 ---
 
@@ -81,7 +81,7 @@ See `skills/memory-digest/SKILL.md` for the complete procedure.
 
 ```
 session → memory/daily/<ts>.md  (raw, ephemeral)
-               ↓  /claude-project-memory:memory-digest (Sonnet, sequential)
+               ↓  /claude-project-memory:digest (Sonnet, sequential)
            docs/vault/...                 (curated, permanent, linked)
                ↓
            memory/daily/<ts>.md DELETED

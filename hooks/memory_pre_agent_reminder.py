@@ -28,8 +28,8 @@ def main():
         reminder = (
             "<pre-agent-reminder>"
             "Before the sub-agent starts working, ensure its prompt includes relevant "
-            "documentation context. If you haven't yet consulted the memory-search "
-            "skill (`Skill(skill: \"claude-project-memory:memory-search\", args: \"<task>\")`) "
+            "documentation context. If you haven't yet consulted the claude-project-memory:search "
+            "skill (`Skill(skill: \"claude-project-memory:search\", args: \"<task>\")`) "
             "for this task, consider doing so first and then passing the "
             "retrieved documentation as context in the sub-agent's prompt."
             "</pre-agent-reminder>"

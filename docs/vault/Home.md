@@ -50,7 +50,7 @@ Master content map. Open this vault from `docs/vault/` in Obsidian.
 
 | Note | Description |
 |------|-------------|
-| [[Claude/Memory]] | Long-term memory system — daily log, `/claude-project-memory:memory-digest`, distillation flow to vault |
+| [[Claude/Memory]] | Long-term memory system — daily log, `/claude-project-memory:digest`, distillation flow to vault |
 
 ---
 

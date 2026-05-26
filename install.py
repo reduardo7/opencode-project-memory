@@ -78,13 +78,6 @@ def main() -> None:
     ]:
         copy_if_missing(plugin_dir / f, target / f)
 
-    # Copy Claude commands
-    print("→ Copying .claude/commands/")
-    copy_if_missing(
-        plugin_dir / ".claude/commands/conditional-docs.md",
-        target / ".claude/commands/conditional-docs.md",
-    )
-
     print()
     print("Installation complete.")
     print()

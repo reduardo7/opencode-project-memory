@@ -1,5 +1,5 @@
 ---
-name: memory-digest-spec
+name: digest-spec
 description: 'Sub-agent: distill one spec file into the vault.'
 version: 1.0.0
 tools:
@@ -32,8 +32,7 @@ Before reading the spec, load the minimum vault context needed to avoid duplicat
 
 - Read `docs/vault/Home.md` — vault structure and section index.
 - Read `docs/vault/Decisions/Index.md` — existing ADRs (to avoid duplicates and determine the next ADR number).
-- Read `.claude/commands/conditional-docs.md` — to know which docs to update if new conditional reading rules are needed.
-- Invoke skill `claude-project-memory:memory-digest-rules` — **mandatory**: granularity filter, vault writing rules (Steps 4–7), and shared critical rules. Apply all rules from this skill throughout.
+- Invoke skill `claude-project-memory:digest-rules` — **mandatory**: granularity filter, vault writing rules (Steps 4–7), and shared critical rules. Apply all rules from this skill throughout.
 - Invoke skill `obsidian-vault` — mandatory: naming conventions (kebab-case, snake_case, ADR naming), wikilink format (full path required), and the checklist for creating/renaming vault files. Claude Rules may not fire in sub-agent context — invoke explicitly.
 
 ---
@@ -64,13 +63,13 @@ Focus on **durable knowledge** — information that remains relevant after the f
 - "note:" / "nota:", "warning:" / "advertencia:", "important:" / "importante:", "caveat:" — likely a gotcha or constraint.
 - Security, auth, or data access design — almost always worth an ADR entry.
 
-Apply the **granularity filter** from skill `claude-project-memory:memory-digest-rules` before promoting any item.
+Apply the **granularity filter** from skill `claude-project-memory:digest-rules` before promoting any item.
 
 ---
 
 ## Steps 4–7 — Write to vault, update indexes, update skills, evaluate Claude Rule
 
-Apply the shared rules loaded from skill `claude-project-memory:memory-digest-rules` in Step 1.
+Apply the shared rules loaded from skill `claude-project-memory:digest-rules` in Step 1.
 
 ---
 
@@ -94,6 +93,6 @@ NOTES: <any item that could not be classified or requires human review>
 
 - Process **only** the file passed as input. Never touch other spec files.
 - Never modify or delete the spec file — it is immutable historical record.
-- The parent agent (`/claude-project-memory:memory-digest`) writes the basename to `specs/digested.txt` after confirming this agent's success.
+- The parent agent (`/claude-project-memory:digest`) writes the basename to `specs/digested.txt` after confirming this agent's success.
 - Discard purely procedural content (step-by-step instructions, task lists) — the vault stores decisions and rationale, not recipes.
-- See skill `claude-project-memory:memory-digest-rules` for shared critical rules (secrets, duplicates, bidirectional links).
+- See skill `claude-project-memory:digest-rules` for shared critical rules (secrets, duplicates, bidirectional links).

@@ -93,6 +93,6 @@ After the script completes, show the user:
 
 - Whether `uv` was already present or was installed.
 - The full output from `install.py` (files created / skipped).
-- The next steps printed by the script (customize `docs/vault/Home.md`, update the skills table in `skills/memory-digest-daily/SKILL.md`).
+- The next steps printed by the script (customize `docs/vault/Home.md`, update the skills table in `skills/digest-daily/SKILL.md`).
 
 If the script exits with a non-zero code, report the error output and ask the user to check their environment.

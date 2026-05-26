@@ -1,6 +1,6 @@
 ---
-name: memory-digest-rules
-description: Shared vault-writing rules for memory-digest-daily and memory-digest-spec sub-agents.
+name: digest-rules
+description: Shared vault-writing rules for digest-daily and digest-spec sub-agents.
 ---
 
 # Vault-Writing Rules — Shared by Digest Sub-agents
@@ -58,7 +58,6 @@ If new vault documents were created:
 
 - Add entry to `docs/vault/Home.md` in the correct section.
 - Add entry to `docs/vault/Decisions/Index.md` if a decision was recorded.
-- Evaluate if `.claude/commands/conditional-docs.md` needs a new condition (only when the new document should be read before touching specific files/paths).
 
 ---
 

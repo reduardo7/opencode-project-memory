@@ -5,7 +5,7 @@
 # ///
 
 """
-UserPromptSubmit hook — injects a reminder to invoke the memory-search
+UserPromptSubmit hook — injects a reminder to invoke the claude-project-memory:search
 sub-agent before executing non-trivial tasks.
 
 Text printed to stdout is injected as additional context in the prompt
@@ -18,8 +18,8 @@ import sys
 def main():
     reminder = (
         "<memory-search-reminder>"
-        "Before executing the task, invoke the `claude-project-memory:memory-search` skill "
-        "via `Skill(skill: \"claude-project-memory:memory-search\", args: \"<task>\")` to retrieve "
+        "Before executing the task, invoke the `claude-project-memory:search` skill "
+        "via `Skill(skill: \"claude-project-memory:search\", args: \"<task>\")` to retrieve "
         "relevant documentation from the vault if the task is non-trivial "
         "(feature implementation, architectural changes, schema modifications, "
         "ADR creation/updates, questions about what exists in the project). "

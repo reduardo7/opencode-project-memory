@@ -1,5 +1,5 @@
 ---
-name: memory-digest
+name: digest
 description: Distill daily memory logs into the vault.
 version: 1.0.0
 model: haiku
@@ -8,7 +8,7 @@ allowed-tools: ["Glob", "Grep", "Read", "Edit", "Write", "Bash", "Agent"]
 
 **Execute the procedure below immediately. Do not ask for confirmation — just run it.**
 
-You are the memory-digest orchestrator. Your job is to process the raw session logs (`memory/daily/*.md`) and undigested specs (`specs/*.md`), and promote durable knowledge to the Obsidian vault (`docs/vault/`).
+You are the memory digest orchestrator. Your job is to process the raw session logs (`memory/daily/*.md`) and undigested specs (`specs/*.md`), and promote durable knowledge to the Obsidian vault (`docs/vault/`).
 
 Each file is processed by an **independent sub-agent** to maintain clean context. This command acts as an orchestrator: discovers files, launches sub-agents, records results, and cleans up.
 
@@ -32,8 +32,8 @@ Convert raw session notes and implementation specs into curated, linked, and per
 
 Process **one at a time** (sequential) to avoid write conflicts in the same vault documents (e.g., `Decisions/Index.md`, `Home.md`):
 
-1. Read the full content of `skills/memory-digest-daily/SKILL.md`.
-2. For each file (in chronological order): spawn a **`general-purpose`** sub-agent with **`model: haiku`** whose prompt consists of the full content of `skills/memory-digest-daily/SKILL.md` followed by a line `Input file: <absolute path>`. Wait for its result before continuing to the next.
+1. Read the full content of `skills/digest-daily/SKILL.md`.
+2. For each file (in chronological order): spawn a **`general-purpose`** sub-agent with **`model: haiku`** whose prompt consists of the full content of `skills/digest-daily/SKILL.md` followed by a line `Input file: <absolute path>`. Wait for its result before continuing to the next.
 3. If the sub-agent reports success: **delete** the corresponding `memory/daily/<ts>.md` file.
 4. If the sub-agent reports error or unclassified items (`NOTES` not empty): leave the file, record the problem for the final report. If the sub-agent wrote partially to the vault, note it in the report for human review — do not revert manually.
 
@@ -48,8 +48,8 @@ Process **one at a time** (sequential) to avoid write conflicts in the same vaul
 
 Process **one at a time** (sequential) to avoid write conflicts in the same vault documents:
 
-1. Read the full content of `skills/memory-digest-spec/SKILL.md`.
-2. For each spec (in chronological order): spawn a **`general-purpose`** sub-agent with **`model: haiku`** whose prompt consists of the full content of `skills/memory-digest-spec/SKILL.md` followed by a line `Input file: <absolute path>`. Wait for its result before continuing to the next.
+1. Read the full content of `skills/digest-spec/SKILL.md`.
+2. For each spec (in chronological order): spawn a **`general-purpose`** sub-agent with **`model: haiku`** whose prompt consists of the full content of `skills/digest-spec/SKILL.md` followed by a line `Input file: <absolute path>`. Wait for its result before continuing to the next.
 3. If the sub-agent reports success: append the spec's basename to the end of `specs/digested.txt`.
 4. If the sub-agent reports error: do not record in `digested.txt` — will retry on next execution. If the sub-agent wrote partially to the vault, note it in the report for human review.
 
@@ -98,8 +98,8 @@ Both sub-agents are spawned as **`general-purpose`** agents with **`model: haiku
 
 | Skill file (instructions source) | Agent type | Model | Purpose |
 |----------------------------------|------------|-------|---------|
-| `skills/memory-digest-daily/SKILL.md` | `general-purpose` | `haiku` | Processes one `memory/daily/<ts>.md` → vault + skills |
-| `skills/memory-digest-spec/SKILL.md` | `general-purpose` | `haiku` | Processes one `specs/<name>.md` → vault + skills |
+| `skills/digest-daily/SKILL.md` | `general-purpose` | `haiku` | Processes one `memory/daily/<ts>.md` → vault + skills |
+| `skills/digest-spec/SKILL.md` | `general-purpose` | `haiku` | Processes one `specs/<name>.md` → vault + skills |
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: 'memory-search'
+name: 'search'
 description: "Retrieve relevant vault docs before implementation."
 version: 1.0.0
 tools:
@@ -25,13 +25,12 @@ Given a task description or topic, you will:
 Read ALL of these before doing anything else:
 
 1. **`docs/vault/Home.md`** — Master vault index. Contains the complete structure of all vault sections with descriptions for each document. **Use this as the authoritative map to identify which documents are relevant to the task.**
-2. **`.claude/commands/conditional-docs.md`** — Reading conditions by context: maps task types to documents and skills. Cross-check against `Home.md` to confirm relevance. (Read only if it exists in the project.)
-3. **`memory/daily/`** — Scan for recent session logs (use Glob `memory/daily/*.md`). Files are named `YYYY-MM-DD_HHMMSS.md` — compare the date prefix of each filename to today's date to determine age. Read any files from the last 7 days — they contain non-obvious decisions, corrections, and discoveries not yet promoted to the vault.
-4. **`docs/vault/Decisions/Index.md`** — Mandatory for any feature or architectural work. Lists all existing decisions that must be respected.
+2. **`memory/daily/`** — Scan for recent session logs (use Glob `memory/daily/*.md`). Files are named `YYYY-MM-DD_HHMMSS.md` — compare the date prefix of each filename to today's date to determine age. Read any files from the last 7 days — they contain non-obvious decisions, corrections, and discoveries not yet promoted to the vault.
+3. **`docs/vault/Decisions/Index.md`** — Mandatory for any feature or architectural work. Lists all existing decisions that must be respected.
 
 ## Step 2 — Task-Specific Vault Documents
 
-Using **`docs/vault/Home.md`** as your primary map and `conditional-docs.md` (if it exists) to confirm conditions, identify and read the documents that match the task. `Home.md` lists every available document with its description — use it to select the most relevant ones.
+Using **`docs/vault/Home.md`** as your primary map to confirm conditions, identify and read the documents that match the task. `Home.md` lists every available document with its description — use it to select the most relevant ones.
 
 When unsure which documents apply, use `Glob docs/vault/**/*.md` to list all available files and cross-reference with the `Home.md` structure.
 
@@ -84,7 +83,7 @@ Use `Grep` to search within `docs/vault/` for the key terms of the task (entity 
 [... repeat for each document ...]
 
 ### Referenced Skills
-[List skills from conditional-docs.md that are relevant to this task, or discovered via Glob in .claude/skills/]
+[Discovered via Glob in .claude/skills/]
 
 ### Files Not Found
 [Files that were expected but not found at their paths]
@@ -96,7 +95,7 @@ Use `Grep` to search within `docs/vault/` for the key terms of the task (entity 
 - You do NOT make recommendations or decisions.
 - You do NOT summarize or paraphrase documentation — return full content.
 - You do NOT skip documents because they seem long — completeness is required.
-- You always read the 3 mandatory entry points regardless of the task (Home.md, recent daily logs, Decisions/Index.md — plus conditional-docs.md if it exists).
+- You always read the 3 mandatory entry points regardless of the task (Home.md, recent daily logs, Decisions/Index.md).
 - When in doubt about relevance, err on the side of including more documentation.
 - Use `Grep` to search within vault files when looking for specific terms, entity names, or feature references across multiple documents.
 
@@ -107,5 +106,4 @@ Use `Grep` to search within `docs/vault/` for the key terms of the task (entity 
 | Project root                | `$CLAUDE_PROJECT_DIR`                                      |
 | Vault index (master map)    | `$CLAUDE_PROJECT_DIR/docs/vault/Home.md`                   |
 | Vault                       | `$CLAUDE_PROJECT_DIR/docs/vault/`                          |
-| Conditional docs (optional) | `$CLAUDE_PROJECT_DIR/.claude/commands/conditional-docs.md` |
 | Session logs                | `$CLAUDE_PROJECT_DIR/memory/daily/`                        |
