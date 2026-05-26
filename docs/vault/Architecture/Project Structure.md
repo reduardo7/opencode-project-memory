@@ -31,10 +31,10 @@ claude-project-memory/
 │
 ├── skills/                      ← slash commands and sub-agent skills
 │   ├── memory/SKILL.md          ← operating instructions (mandatory reading)
-│   ├── memory-digest/SKILL.md   ← /claude-project-memory:memory-digest orchestrator
-│   ├── memory-digest-daily/SKILL.md  ← sub-agent: processes one memory/daily/ file
-│   ├── memory-digest-spec/SKILL.md   ← sub-agent: processes one specs/ file
-│   ├── memory-search/SKILL.md   ← sub-agent: retrieves vault docs before tasks
+│   ├── digest/SKILL.md   ← /claude-project-memory:digest orchestrator
+│   ├── digest-daily/SKILL.md  ← sub-agent: processes one memory/daily/ file
+│   ├── digest-spec/SKILL.md   ← sub-agent: processes one specs/ file
+│   ├── search/SKILL.md   ← sub-agent: retrieves vault docs before tasks
 │   ├── obsidian-vault/SKILL.md  ← vault writing rules (invoked by digest sub-agents)
 │   └── install/SKILL.md         ← /claude-project-memory:install slash command
 │
@@ -49,9 +49,7 @@ claude-project-memory/
 │   └── Project/                 ← empty placeholder; customized per project
 │
 ├── .claude/
-│   ├── settings.json
-│   └── commands/
-│       └── conditional-docs.md  ← task → required vault docs mapping (copied to target)
+│   └── settings.json
 │
 ├── memory/daily/.gitkeep        ← template for session log directory
 ├── install.py                   ← bootstrap script
@@ -70,7 +68,6 @@ claude-project-memory/
 | `docs/vault/{Claude,Decisions,Architecture,Development,Project}/` | `mkdir` | Vault subdirectories |
 | `.claude/commands/` | `mkdir` | Claude commands directory |
 | `docs/vault/**/*.md` (7 templates) | `copy_if_missing` | Skips existing files |
-| `.claude/commands/conditional-docs.md` | `copy_if_missing` | Skips if exists |
 
 **Not created by `install.py`:**
 - `.claude/rules/` — created on demand by Step 7 of digest sub-agents

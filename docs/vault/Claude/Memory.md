@@ -167,11 +167,11 @@ topic: <main topic, one line>
 
 Internal steps:
 
-1. Loads minimum vault context (`Home.md`, `Decisions/Index.md`, `conditional-docs.md` if it exists).
+1. Loads minimum vault context (`Home.md`, `Decisions/Index.md`, if it exists).
 2. Reads the session file in full.
 3. Classifies each entry according to the destination table.
 4. Writes or updates documents in the vault (with bidirectional links, without duplicating).
-5. Updates `Home.md`, `Decisions/Index.md`, and `conditional-docs.md` if there are new documents.
+5. Updates `Home.md` and `Decisions/Index.md` if there are new documents.
 6. Evaluates whether any new document requires a Claude Rule in `.claude/rules/`.
 7. Returns structured report to the orchestrator.
 
@@ -187,7 +187,7 @@ Internal steps:
 
 Internal steps:
 
-1. Loads minimum vault context (`Home.md`, `Decisions/Index.md`, `conditional-docs.md` if it exists).
+1. Loads minimum vault context (`Home.md`, `Decisions/Index.md`).
 2. Reads the spec in full.
 3. Extracts **only durable knowledge** — discards purely procedural steps.
 4. Classifies and writes to the vault (same rules as the daily digest sub-agent).
@@ -207,9 +207,8 @@ Before executing non-trivial tasks (implementing features, changing architecture
 **Mandatory entry points** (read before searching by topic):
 
 1. `docs/vault/Home.md`
-2. `.claude/commands/conditional-docs.md` (if it exists)
-3. Recent daily logs (`memory/daily/`) — filenames use format `YYYY-MM-DD_HHMMSS.md`; compare the date prefix to today's date to determine which files are from the last 7 days
-4. `docs/vault/Decisions/Index.md`
+2. Recent daily logs (`memory/daily/`) — filenames use format `YYYY-MM-DD_HHMMSS.md`; compare the date prefix to today's date to determine which files are from the last 7 days
+3. `docs/vault/Decisions/Index.md`
 
 ---
 
