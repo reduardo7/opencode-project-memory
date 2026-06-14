@@ -98,8 +98,8 @@ Every new file in the vault **must** have a wikilink in `Home.md` under the corr
 
 When renaming or moving a vault file, find and update **all** references across the entire repo — not just the vault. References may appear in:
 
-- `CLAUDE.md`
-- `.claude/commands/`, `.claude/commons/`, `.claude/rules/`, `.claude/skills/`
+- `AGENTS.md` (root and nested)
+- `.opencode/command/`, `.opencode/agent/`, `.opencode/skills/`, `.opencode/plugin/`
 - `specs/`
 - `docker/`
 - Other `.md` files outside the vault
@@ -140,7 +140,7 @@ Development/
 4. If the folder already exists, add the new sub-document inside it.
 5. Add wikilinks to new sub-documents in `Home.md`.
 
-**Motivation:** Reduce context consumption when loading documentation with Claude — only the relevant sub-document is loaded instead of the full document.
+**Motivation:** Reduce context consumption when loading documentation — only the relevant sub-document is loaded instead of the full document.
 
 ---
 

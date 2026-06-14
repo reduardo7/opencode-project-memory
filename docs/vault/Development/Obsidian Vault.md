@@ -50,8 +50,8 @@ Every new file in the vault **must** have a wikilink in `Home.md` under the corr
 
 When renaming or moving a vault file, search for and update **all** references in the entire repo — not just the vault. References can be in:
 
-- `CLAUDE.md`
-- `.claude/commands/`, `.claude/rules/`, `skills/`
+- `AGENTS.md` (root and nested)
+- `.opencode/command/`, `.opencode/agent/`, `.opencode/skills/`, `.opencode/plugin/`
 - `specs/`
 - Other `.md` files outside the vault
 

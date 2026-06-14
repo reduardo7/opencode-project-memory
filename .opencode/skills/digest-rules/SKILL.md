@@ -1,9 +1,9 @@
 ---
 name: digest-rules
-description: Shared vault-writing rules for digest-daily and digest-spec sub-agents.
+description: Shared vault-writing rules for the memory-digest-daily and memory-digest-spec subagents.
 ---
 
-# Vault-Writing Rules — Shared by Digest Sub-agents
+# Vault-Writing Rules — Shared by Digest Subagents
 
 ---
 
@@ -63,9 +63,9 @@ If new vault documents were created:
 
 ## Update skills
 
-Skills live in `.claude/skills/<name>/SKILL.md`. If any extracted knowledge belongs in a skill, update it — this is as important as updating the vault.
+Skills live in `.opencode/skills/<name>/SKILL.md`. If any extracted knowledge belongs in a skill, update it — this is as important as updating the vault.
 
-**How to find skills:** `Glob` with pattern `.claude/skills/*/SKILL.md`.
+**How to find skills:** `Glob` with pattern `.opencode/skills/*/SKILL.md`.
 
 **When to update a skill:**
 - A new reusable pattern was discovered.
@@ -85,33 +85,30 @@ Skills live in `.claude/skills/<name>/SKILL.md`. If any extracted knowledge belo
 
 ---
 
-## Evaluate Claude Rule
+## Evaluate directory AGENTS.md
 
-If a new vault document is linked to a specific folder, file, or file type in the repo:
+OpenCode loads `AGENTS.md` files by walking up from the file being worked on, so a directory-scoped `AGENTS.md` is the native equivalent of a path rule. If a new vault document is tied to a specific folder, file, or file type in the repo:
 
-- Check if a Claude Rule already exists for that path in `.claude/rules/`.
-- If not, create `.claude/rules/<kebab-case-name>.md`:
+- Check whether an `AGENTS.md` already exists in (or above) that directory referencing the vault doc.
+- If not, create or extend `<path>/AGENTS.md`:
 
 ```markdown
----
-paths:
-  - 'path/to/folder/**/*'
----
-
-# Descriptive Name
+# <Descriptive Name>
 
 ## Mandatory reading
 
-Before creating or modifying files in `<path>`, read:
+Before creating or modifying files in this directory, read:
 
 - `docs/vault/<Section>/<Document>.md` — one-line description.
 
 ## Mandatory documentation update
 
-When creating, modifying, or deleting files in `<path>`:
+When creating, modifying, or deleting files here:
 
 1. Reflect changes in `docs/vault/<Section>/<Document>.md` in the same commit.
 ```
+
+> Keep these directory `AGENTS.md` files short — they point at the vault, they do not duplicate it. If the repo also keeps a root `AGENTS.md`, prefer a focused nested file over bloating the root.
 
 ---
 

@@ -21,7 +21,7 @@ Master content map. Open this vault from `docs/vault/` in Obsidian.
 | Note | Description |
 |------|-------------|
 | [[Architecture/Database]] | Database schema. |
-| [[Architecture/Project Structure]] | Plugin directory layout, what `install.py` creates, and runtime requirements |
+| [[Architecture/Project Structure]] | Plugin directory layout, what `install.mjs` creates, and runtime requirements |
 
 ---
 
@@ -46,11 +46,11 @@ Master content map. Open this vault from `docs/vault/` in Obsidian.
 
 ---
 
-## Claude Code
+## OpenCode
 
 | Note | Description |
 |------|-------------|
-| [[Claude/Memory]] | Long-term memory system — daily log, `/claude-project-memory:digest`, distillation flow to vault |
+| [[OpenCode/Memory]] | Long-term memory system — daily log, `/digest`, distillation flow to vault |
 
 ---
 
@@ -58,7 +58,7 @@ Master content map. Open this vault from `docs/vault/` in Obsidian.
 
 | Source | Role |
 |--------|------|
-| **CLAUDE.md** | Absolute rules and source of truth — the *what* and the *why* |
+| **AGENTS.md** | Absolute rules and source of truth — the *what* and the *why* |
 | **`docs/vault/Decisions/Index.md`** | ADR index. Consult before implementing; update when completing features |
 | **`docs/vault/Home.md`** | This file — master map of all vault content |
 

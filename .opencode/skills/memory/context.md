@@ -28,21 +28,21 @@ Update **immediately** when it happens — never batch for the end:
 | File / issue / PR touched | `## References` |
 
 **Record:** non-trivial decisions, errors + corrections, vault gaps, recurring gotchas, user feedback on how to work.  
-**Do NOT record:** content already in `CLAUDE.md`/vault, ephemeral state, git history, secrets.
+**Do NOT record:** content already in `AGENTS.md`/vault, ephemeral state, git history, secrets.
 
 ## Before non-trivial tasks
 
-Invoke `claude-project-memory:search` before features, architectural changes, schema changes, ADR work, or questions about what exists:
+Delegate to the `memory-search` subagent before features, architectural changes, schema changes, ADR work, or questions about what exists:
 
 ```
-Skill(skill: "claude-project-memory:search", args: "<task>")
+@memory-search <task>
 ```
 
-Skip for: simple bug fixes, questions already answered in context, trivial sessions.
+(or a `task()` call targeting `memory-search`). Skip for: simple bug fixes, questions already answered in context, trivial sessions.
 
 ## Two memory systems
 
 | | Path | Use for |
 | --- | --- | --- |
 | **Project** | `memory/daily/<ts>.md` → vault | Decisions, corrections, patterns — team knowledge |
-| **Personal** | `~/.claude/projects/.../memory/` | User preferences (style, detail level, etc.) |
+| **Personal** | OpenCode user config (`~/.config/opencode/`) | User preferences (style, detail level, etc.) |

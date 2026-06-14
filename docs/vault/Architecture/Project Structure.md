@@ -1,46 +1,42 @@
 ---
 tags: [architecture, structure, plugin]
-summary: Estructura de directorios y responsabilidades de cada componente del plugin claude-project-memory
+summary: Estructura de directorios y responsabilidades de cada componente del plugin opencode-project-memory
 ---
 
 # Project Structure
 
-Plugin structure for `claude-project-memory`. Installed into target projects via `/plugin install` or `install.py`.
+Plugin structure for `opencode-project-memory`. Installed into target projects via `install.mjs` (or by copying `.opencode/` into `~/.config/opencode/`).
 
-See also: [[Claude/Memory]] | [[Development/Obsidian Vault]]
+See also: [[OpenCode/Memory]] | [[Development/Obsidian Vault]]
 
 ---
 
 ## Plugin source layout
 
 ```
-claude-project-memory/
-├── .claude-plugin/
-│   ├── plugin.json              ← plugin manifest (name, version, requirements)
-│   └── marketplace.json         ← plugin marketplace registration
+opencode-project-memory/
+├── opencode.json                ← project config (instructions glob, schema)
+├── AGENTS.md                    ← project instructions (source of truth for this repo)
 │
-├── hooks/                       ← Python hooks; run from plugin root via ${CLAUDE_PLUGIN_ROOT}
-│   ├── hooks.json               ← event → script mappings (used by /plugin install)
-│   ├── memory_session_start_reminder.py
-│   ├── memory_search_reminder.py
-│   ├── memory_log_reminder.py
-│   ├── memory_pre_agent_reminder.py
-│   ├── memory_stop_reminder.py
-│   ├── memory_pre_compact_reminder.py
-│   └── memory_post_compact_reminder.py
+├── .opencode/
+│   ├── plugin/
+│   │   └── memory.js            ← the plugin — all memory hooks in one module
+│   ├── command/
+│   │   ├── digest.md            ← /digest orchestrator
+│   │   └── install.md           ← /install slash command
+│   ├── agent/
+│   │   ├── memory-search.md     ← subagent: retrieves vault docs before tasks
+│   │   ├── memory-digest-daily.md ← subagent: processes one memory/daily/ file
+│   │   └── memory-digest-spec.md  ← subagent: processes one specs/ file
+│   └── skills/
+│       ├── memory/SKILL.md      ← operating instructions
+│       ├── memory/context.md    ← rules injected by the plugin into the system prompt
+│       ├── digest-rules/SKILL.md  ← vault-writing rules (loaded by digest subagents)
+│       └── obsidian-vault/SKILL.md ← vault naming/wikilink/size conventions
 │
-├── skills/                      ← slash commands and sub-agent skills
-│   ├── memory/SKILL.md          ← operating instructions (mandatory reading)
-│   ├── digest/SKILL.md   ← /claude-project-memory:digest orchestrator
-│   ├── digest-daily/SKILL.md  ← sub-agent: processes one memory/daily/ file
-│   ├── digest-spec/SKILL.md   ← sub-agent: processes one specs/ file
-│   ├── search/SKILL.md   ← sub-agent: retrieves vault docs before tasks
-│   ├── obsidian-vault/SKILL.md  ← vault writing rules (invoked by digest sub-agents)
-│   └── install/SKILL.md         ← /claude-project-memory:install slash command
-│
-├── docs/vault/                  ← template vault copied to target project by install.py
+├── docs/vault/                  ← template vault copied to target project by install.mjs
 │   ├── Home.md
-│   ├── Claude/Memory.md
+│   ├── OpenCode/Memory.md
 │   ├── Architecture/Database.md
 │   ├── Architecture/Project Structure.md
 │   ├── Decisions/Index.md
@@ -48,34 +44,30 @@ claude-project-memory/
 │   ├── Development/Expected Behaviors.md
 │   └── Project/                 ← empty placeholder; customized per project
 │
-├── .claude/
-│   └── settings.json
-│
 ├── memory/daily/.gitkeep        ← template for session log directory
-├── install.py                   ← bootstrap script
-├── CLAUDE.md
+├── install.mjs                  ← bootstrap script (Node/Bun, zero-dependency)
 └── README.md
 ```
 
 ---
 
-## What `install.py` creates in the target project
+## What `install.mjs` creates in the target project
 
 | Path | How | Notes |
 |------|-----|-------|
-| `memory/daily/` | `mkdir` | Session log directory |
-| `specs/` | `mkdir` | Implementation specs (immutable) |
-| `docs/vault/{Claude,Decisions,Architecture,Development,Project}/` | `mkdir` | Vault subdirectories |
-| `.claude/commands/` | `mkdir` | Claude commands directory |
-| `docs/vault/**/*.md` (7 templates) | `copy_if_missing` | Skips existing files |
+| `.opencode/{plugin,command,agent,skills}/` | copy (overwrite) | Plugin-managed tooling — overwritten on re-install so updates propagate |
+| `memory/daily/` | `mkdir` + `.gitkeep` | Session log directory |
+| `specs/` | `mkdir` + `.gitkeep` | Implementation specs (immutable) |
+| `docs/vault/{OpenCode,Decisions,Architecture,Development,Project}/` | `mkdir` | Vault subdirectories |
+| `docs/vault/**/*.md` (7 templates) | copy if missing | Skips existing files (preserves customizations) |
+| `opencode.json` | create if missing | Minimal config with `instructions: ["docs/vault/Home.md"]` |
 
-**Not created by `install.py`:**
-- `.claude/rules/` — created on demand by Step 7 of digest sub-agents
-- `.claude/hooks/` — hooks run from `${CLAUDE_PLUGIN_ROOT}/hooks/`, not copied to the target
+**Not created by `install.mjs`:**
+- Nested `AGENTS.md` path rules — created on demand by the digest subagents when a vault doc maps to a code path.
 
 ---
 
 ## Runtime requirements
 
-- Python ≥ 3.11
-- `uv` (for hook execution)
+- OpenCode (loads `.opencode/plugin/`, `agent/`, `command/`, `skills/` automatically).
+- Node 18+ or Bun — only for running `install.mjs`. The plugin itself runs inside OpenCode's runtime; no Python / uv.

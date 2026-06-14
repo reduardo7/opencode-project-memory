@@ -1,14 +1,14 @@
 ---
 title: Expected Behaviors (NOT bugs)
-summary: Non-obvious but intentional behaviors in the claude-project-memory plugin. Check before flagging as a bug or requesting a change.
+summary: Non-obvious but intentional behaviors in the opencode-project-memory plugin. Check before flagging as a bug or requesting a change.
 tags: [development, gotchas, expected-behaviors]
 ---
 
 # Expected Behaviors (NOT bugs)
 
-Intentional design decisions and non-obvious behaviors that reviewers or new developers might mistakenly flag as bugs. Entries are added here by the `/claude-project-memory:digest` process when a gotcha is discovered during a session.
+Intentional design decisions and non-obvious behaviors that reviewers or new developers might mistakenly flag as bugs. Entries are added here by the `/digest` process when a gotcha is discovered during a session.
 
-See also: [[Claude/Memory]] | [[Development/Obsidian Vault]]
+See also: [[OpenCode/Memory]] | [[Development/Obsidian Vault]]
 
 ---
 
@@ -30,12 +30,30 @@ Before flagging something as a bug or requesting a change, check this document. 
 
 ---
 
-### Claude Code Agent — SKILL.md `model:` frontmatter ignored when content is injected into Agent prompt
+### Subagents — skills are NOT auto-loaded; they must be invoked explicitly
 
-**Behavior:** When a SKILL.md file's content is read and injected into a `general-purpose` Agent's prompt (as done by `claude-project-memory:digest` for `claude-project-memory:digest-daily` and `claude-project-memory:digest-spec`), the `model:` field in the SKILL.md frontmatter has no effect. The sub-agent uses whatever model is the default unless `model:` is passed explicitly in the `Agent(...)` tool call.
+**Behavior:** The `memory-digest-daily` and `memory-digest-spec` subagents invoke the `digest-rules` and `obsidian-vault` skills explicitly in their Step 1 (via the `skill` tool), even though the parent context may already have loaded them.
 
-**Why it's intentional:** The SKILL.md frontmatter is only processed by the Claude Code skill invocation mechanism (`Skill(skill: "...")` tool). When SKILL.md content is embedded into a `general-purpose` Agent prompt as plain text, the frontmatter is just string content — no metadata parsing occurs.
+**Why it's intentional:** A subagent runs with a fresh context. Skills loaded by the orchestrator do not carry over, so each subagent must load the shared rules itself or it will write to the vault without the naming/wikilink/size conventions.
 
-**Where it appears:** `skills/digest/SKILL.md` — must explicitly pass `model: sonnet` in every `Agent(...)` spawn for `claude-project-memory:digest-daily` and `claude-project-memory:digest-spec`. Contrast with `claude-project-memory:search`, which is invoked via `Skill(skill: "claude-project-memory:search")` so its `model: haiku` frontmatter is applied automatically.
+**Where it appears:** `.opencode/agent/memory-digest-daily.md` and `.opencode/agent/memory-digest-spec.md`, Step 1.
 
-**Rule:** Any skill invoked via `Agent(subagent_type: "general-purpose", prompt: <SKILL.md content>)` must have `model:` passed explicitly as a parameter. Any skill invoked via `Skill(skill: "plugin:name")` automatically picks up the `model:` from its frontmatter.
+---
+
+### Plugin — experimental hooks are wrapped defensively on purpose
+
+**Behavior:** Every hook body in `.opencode/plugin/memory.js` is wrapped in `try/catch` with optional chaining and array guards (e.g. it checks whether `output.system` is an array before pushing).
+
+**Why it's intentional:** The `experimental.chat.system.transform` and `experimental.session.compacting` surfaces still change field names between OpenCode versions. Defensive code degrades gracefully (a reminder silently no-ops) instead of throwing and breaking the user's turn.
+
+**Where it appears:** `.opencode/plugin/memory.js` — `pushSystem()` helper and the `try/catch` around each hook.
+
+---
+
+### Plugin — reminders live in the system prompt every turn, not on discrete events
+
+**Behavior:** The search reminder and log reminder are injected on *every* inference via `system.transform`, not only on the first prompt of a session.
+
+**Why it's intentional:** OpenCode has no per-prompt stdout hook equivalent to Claude Code's `UserPromptSubmit`, and `system.transform` does not yet receive the user message (so keyword heuristics are impossible). Always-on injection is simpler and survives compaction for free.
+
+**Where it appears:** `.opencode/plugin/memory.js` — `experimental.chat.system.transform`.
