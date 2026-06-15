@@ -2,6 +2,8 @@
 
 A long-term memory system for [OpenCode](https://opencode.ai). Captures session decisions, errors, and discoveries in raw daily logs, then distills them into a curated Obsidian vault via the `/digest` command.
 
+Claude Code version: https://github.com/reduardo7/claude-project-memory
+
 ### Why this approach is different
 
 Most memory systems store knowledge **per-user**, in a global location on the developer's machine. This system stores memory **inside the repository** — in `docs/vault/` — which means:
