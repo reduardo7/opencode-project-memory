@@ -33,7 +33,7 @@ Session work
 docs/vault/  (curated, permanent, cross-linked Obsidian vault)
 ```
 
-**The plugin** (`.opencode/plugin/memory.js`) reinforces the system automatically. Where Claude Code needed seven separate hooks, OpenCode's hook model collapses them into one module:
+**The plugin** (`.opencode/plugin/memory.js`) reinforces the system automatically through OpenCode's hooks, all in one module:
 
 | OpenCode hook | Effect |
 | --- | --- |
@@ -123,7 +123,7 @@ The digest subagents maintain the vault's established language (they check exist
 
 ### Subagent model
 
-The subagents default to `anthropic/claude-haiku-4-5` for cost. Change the `model:` frontmatter in `.opencode/agent/*.md` to use a different provider/model.
+The subagents inherit your session's default model. To pin them to a cheaper/faster model (recommended for the digest pipeline), add a `model:` field to the frontmatter in `.opencode/agent/*.md`, e.g. `model: anthropic/claude-haiku-4-5`.
 
 ### Vault root path
 

@@ -1,20 +1,17 @@
 /**
  * opencode-project-memory — OpenCode plugin
  *
- * Project-scoped long-term memory system. This single plugin replaces the
- * seven Python hooks of the original Claude Code plugin. OpenCode's hook model
- * is different: instead of external scripts printing to stdout on lifecycle
- * events, a plugin exports hook functions that mutate the model's system prompt
- * and the compaction prompt directly.
+ * Project-scoped long-term memory system. A single plugin drives all memory
+ * behaviors. OpenCode plugins export hook functions that mutate the model's
+ * system prompt and the compaction prompt directly (rather than external
+ * scripts printing to stdout on lifecycle events).
  *
- * Hook mapping (Claude Code -> OpenCode):
- *   SessionStart / PostCompact context injection  -> experimental.chat.system.transform
- *   UserPromptSubmit search reminder              -> experimental.chat.system.transform
- *   UserPromptSubmit log reminder                 -> experimental.chat.system.transform
- *   PostCompact "re-read base docs"               -> session.compacted event + one-shot in system.transform
- *   PreCompact persist reminder                   -> experimental.session.compacting
- *   PreToolUse[Agent] vault-consult reminder      -> tool.execute.before (task tool)
- *   Stop log reminder                             -> session.idle event (TUI toast)
+ * Hooks:
+ *   experimental.chat.system.transform -> inject memory context + search/log reminders (every inference)
+ *   experimental.session.compacting    -> remind to persist the daily log before history is discarded
+ *   tool.execute.before (task)         -> remind subagents to consult the vault first
+ *   event: session.idle                -> nudge to update/create the daily log (TUI toast)
+ *   event: session.compacted           -> arm the one-shot "re-read base docs" reminder
  *
  * The experimental.* hook surface still moves between OpenCode versions, so
  * every hook body is defensive: optional chaining, array guards, and try/catch
@@ -41,7 +38,6 @@ export const MemoryPlugin = async ({ project, client, directory, worktree, $ }) 
   async function readContext() {
     const candidates = [
       path.join(root, ".opencode", "skills", "memory", "context.md"),
-      path.join(root, ".claude", "skills", "memory", "context.md"),
       path.join(root, "skills", "memory", "context.md"),
     ];
     for (const c of candidates) {
@@ -120,10 +116,9 @@ export const MemoryPlugin = async ({ project, client, directory, worktree, $ }) 
 
   return {
     /**
-     * Runs before every model inference. This is the OpenCode home for what
-     * Claude Code spread across SessionStart, PostCompact, and the two
-     * UserPromptSubmit hooks: the memory operating context plus the search and
-     * log reminders are always present, so they survive compaction for free.
+     * Runs before every model inference. The memory operating context plus the
+     * search and log reminders are injected here, so they are always present and
+     * survive compaction for free.
      */
     "experimental.chat.system.transform": async (input, output) => {
       try {

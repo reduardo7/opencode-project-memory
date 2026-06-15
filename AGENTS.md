@@ -65,15 +65,15 @@ Work session → memory/daily/YYYY-MM-DD_HHMMSS.md   (raw log)
 
 All memory behaviors live in **one plugin module**, `.opencode/plugin/memory.js`, which exports an async function returning a hooks object. OpenCode loads it automatically from `.opencode/plugin/`.
 
-| OpenCode hook | Replaces (Claude Code) | Behavior |
-| --- | --- | --- |
-| `experimental.chat.system.transform` | `SessionStart` + `PostCompact` + both `UserPromptSubmit` hooks | Injects `skills/memory/context.md`, the search reminder, the log reminder, and (once after compaction) the re-read-base-docs reminder into the system prompt on every inference |
-| `experimental.session.compacting` | `PreCompact` | Reminds to persist the daily log before compaction discards history |
-| `tool.execute.before` (`task`) | `PreToolUse[Agent]` | Prepends a vault-consult reminder to subagent prompts (memory-system agents skipped) |
-| `event` → `session.idle` | `Stop` | TUI toast: update/create the daily log if there was significant work |
-| `event` → `session.compacted` | (part of `PostCompact`) | Arms the one-shot re-read-base-docs reminder for the next inference |
+| OpenCode hook | Behavior |
+| --- | --- |
+| `experimental.chat.system.transform` | Injects `skills/memory/context.md`, the search reminder, the log reminder, and (once after compaction) the re-read-base-docs reminder into the system prompt on every inference |
+| `experimental.session.compacting` | Reminds to persist the daily log before compaction discards history |
+| `tool.execute.before` (`task`) | Prepends a vault-consult reminder to subagent prompts (memory-system agents skipped) |
+| `event` → `session.idle` | TUI toast: update/create the daily log if there was significant work |
+| `event` → `session.compacted` | Arms the one-shot re-read-base-docs reminder for the next inference |
 
-**Why fewer hooks:** OpenCode's `system.transform` runs before *every* inference, so the persistent context that Claude Code re-injected via separate `SessionStart`/`PostCompact`/`UserPromptSubmit` hooks collapses into one place and survives compaction for free.
+**Why one place for persistent context:** OpenCode's `system.transform` runs before *every* inference, so the memory operating context and reminders are injected once and survive compaction for free — no separate session-start or post-compaction hook is needed.
 
 The experimental hook surface still shifts between OpenCode versions — keep every hook body defensive (optional chaining, array guards, `try/catch`).
 

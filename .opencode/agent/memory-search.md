@@ -4,7 +4,6 @@ description: >-
   architectural or schema changes, ADR work, or questions about what exists in
   the project. Returns documentation content only — makes no decisions.
 mode: subagent
-model: anthropic/claude-haiku-4-5
 temperature: 0.1
 tools:
   read: true

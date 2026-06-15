@@ -54,6 +54,6 @@ Before flagging something as a bug or requesting a change, check this document. 
 
 **Behavior:** The search reminder and log reminder are injected on *every* inference via `system.transform`, not only on the first prompt of a session.
 
-**Why it's intentional:** OpenCode has no per-prompt stdout hook equivalent to Claude Code's `UserPromptSubmit`, and `system.transform` does not yet receive the user message (so keyword heuristics are impossible). Always-on injection is simpler and survives compaction for free.
+**Why it's intentional:** OpenCode has no per-prompt hook that can inject text conditioned on the user's message — `system.transform` runs before every inference but does not yet receive the user message (so keyword heuristics are impossible). Always-on injection is simpler and survives compaction for free.
 
 **Where it appears:** `.opencode/plugin/memory.js` — `experimental.chat.system.transform`.

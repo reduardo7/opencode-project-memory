@@ -3,7 +3,6 @@ description: >-
   Distill one raw session log (memory/daily/<ts>.md) into the Obsidian vault.
   Spawned one-at-a-time by the /digest command — not invoked directly.
 mode: subagent
-model: anthropic/claude-haiku-4-5
 temperature: 0.2
 tools:
   read: true
