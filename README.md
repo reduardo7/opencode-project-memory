@@ -49,6 +49,17 @@ docs/vault/  (curated, permanent, cross-linked Obsidian vault)
 
 ## Installation
 
+### For Humans (agent-assisted)
+
+Paste this into your LLM agent session (Claude Code, AmpCode, Cursor, OpenCode, etc.):
+
+```
+Install and configure opencode-project-memory by following the instructions here:
+https://raw.githubusercontent.com/reduardo7/opencode-project-memory/refs/heads/main/docs/guide/installation.md
+```
+
+Your agent will read the guide and handle the rest. See [`docs/guide/installation.md`](docs/guide/installation.md) for the full step-by-step instructions.
+
 ### Per-project (recommended)
 
 Clone this repo, then run the bootstrap script against your target project:
